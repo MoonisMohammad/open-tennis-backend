@@ -27,7 +27,7 @@ public class DataService {
         Device device = deviceRepository.findByAuthorizationId(authorizationId);
         if (device == null){
             throw new IllegalStateException(
-                "device with authorization Id "+authorizationId+"does not exist");
+                "device with authorization Id "+authorizationId+" does not exist");
         }
 
         data.setFacilityId(device.getFacilityId());

@@ -84,15 +84,17 @@ public class DeviceService {
         }
     }
 
+    @Transactional
     public void registerDevice(Device device){
         AppUser appUser = getCurrentUser();
         Long ownerId = appUser.getOrganizationId();
         Long facilityId = device.getFacilityId();
         String authorizationId = device.getAuthorizationId();
+        int areasMonitored = device.getAreasMonitored();
         String name = device.getName();
 
         Device d = deviceRepository.findByAuthorizationId(authorizationId);
-        d.register(ownerId, facilityId, name);
+        d.register(ownerId, facilityId, name,areasMonitored);
     }
 
     public AppUser getCurrentUser(){

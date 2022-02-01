@@ -1,5 +1,6 @@
 package com.occupancy.api.data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +33,7 @@ public class Data {
     private Long facilityId;
     private Long deviceId;
     private int count;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeStamp;
 
 }

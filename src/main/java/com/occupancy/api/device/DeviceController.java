@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class DeviceController {
     public List<Device> getOwnedDevices(){
         return deviceService.getOwnedDevices();
     }
+
 
     @PutMapping(path = "register")
     public void registerDevice(

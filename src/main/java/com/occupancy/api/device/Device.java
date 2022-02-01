@@ -31,6 +31,7 @@ public class Device {
     private String name;
     private String authorizationId;
     private boolean inUse;
+    private  int areasMonitored;
 
     public Device(){
 
@@ -42,10 +43,12 @@ public class Device {
         this.inUse =false;
     }
 
-    public void register(Long ownerId,Long facilityId,String name){
+    public void register(Long ownerId,Long facilityId,String name,int areasMonitored){
         this.inUse = true;
         this.ownerId = ownerId;
+        this.facilityId =facilityId;
         this.name = name;
+        this.areasMonitored =areasMonitored;
     }
 
     public String createAuthId(){
