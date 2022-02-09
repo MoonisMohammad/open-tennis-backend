@@ -1,11 +1,13 @@
 package com.occupancy.api.facility;
 
 import com.occupancy.api.appuser.AppUser;
+import com.occupancy.api.distance_calculator.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Objects;
@@ -36,6 +38,26 @@ public class FacilityService {
     public List<Facility> getOwnedFacilities(){
         AppUser appUser = getCurrentUser();
         return facilityRepository.findByOwnerId(appUser.getOrganizationId());
+    }
+
+    public List<Facility> getFilteredFacilities(Double latitude,
+                                                Double longitude,
+                                                String city,
+                                                Double range,
+                                                char unit) {
+        List<Facility> facilities = facilityRepository.findByCity(city);
+        if(!facilities.isEmpty()) {
+            throw new IllegalStateException(
+                    "No facilities in city "+city);
+        }
+        ArrayList<Facility> filtered = new ArrayList<Facility>();
+        DistanceCalculator distanceCalculator = new DistanceCalculator();
+        for(Facility facility : facilities){
+            if(distanceCalculator.inRange(facility,latitude,longitude,unit,range)){
+                filtered.add(facility);
+            }
+        }
+        return filtered;
     }
 
     public void addNewFacility(Facility facility){

@@ -29,10 +29,12 @@ public class DataService {
             throw new IllegalStateException(
                 "device with authorization Id "+authorizationId+" does not exist");
         }
-
+        if (data.getRefrenceNumber() < 0 && data.getRefrenceNumber() >= device.getAreasMonitored()){
+            throw new IllegalStateException(
+                    "Reference number out of bounds for device");
+        }
         data.setFacilityId(device.getFacilityId());
         data.setDeviceId(device.getId());
-
         dataRepository.save(data);
     }
 

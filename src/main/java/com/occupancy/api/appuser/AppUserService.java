@@ -42,9 +42,6 @@ public class AppUserService implements UserDetailsService {
         boolean userExists = appUserRepository
                 .findByEmail(appUser.getEmail())
                 .isPresent();
-
-
-
         if (userExists) {
             // TODO check of attributes are the same and
             // TODO if email not confirmed send confirmation email.
@@ -52,7 +49,6 @@ public class AppUserService implements UserDetailsService {
             boolean enabled = appUserRepository
                     .findByEmail(appUser.getEmail())
                     .get().getEnabled();
-
             if(!enabled){
 
                 Long userId = appUserRepository.findByEmail(appUser.getEmail()).get().getId();
@@ -63,28 +59,20 @@ public class AppUserService implements UserDetailsService {
                 throw new IllegalStateException("email already taken");
             }
         }
-
         String encodedPassword = bCryptPasswordEncoder
                 .encode(appUser.getPassword());
-
         appUser.setPassword(encodedPassword);
-
         appUserRepository.save(appUser);
-
         String token = UUID.randomUUID().toString();
-
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(15),
                 appUser
         );
-
         confirmationTokenService.saveConfirmationToken(
                 confirmationToken);
-
-//        TODO: SEND EMAIL
-
+        //        TODO: SEND EMAIL
         return token;
     }
 
@@ -139,6 +127,5 @@ public class AppUserService implements UserDetailsService {
             return null;
         }
     }
-
 
 }

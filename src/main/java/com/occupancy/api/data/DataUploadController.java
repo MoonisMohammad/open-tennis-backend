@@ -24,6 +24,5 @@ public class DataUploadController {
     public void upload(@PathVariable("authorizationId")  String authorizationId,
                        @RequestBody Data data){
         dataService.upload(authorizationId,data);
-
     }
 }

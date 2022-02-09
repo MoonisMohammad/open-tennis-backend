@@ -12,4 +12,5 @@ public interface FacilityRepository extends JpaRepository<Facility,Long> {
     @Query("SELECT f FROM Facility f WHERE f.ownerId = ?1")
     List<Facility> findByOwnerId(Long ownerId);
 
+    List<Facility> findByCity(String city);
 }

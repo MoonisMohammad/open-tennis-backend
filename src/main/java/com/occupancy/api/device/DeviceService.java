@@ -60,6 +60,8 @@ public class DeviceService {
 
         GenerateQRCode g = new GenerateQRCode();
 
+        System.out.println(device.getAuthorizationId());
+
         return GenerateQRCode.tryQr(device.getAuthorizationId());
 
     }

@@ -29,11 +29,9 @@ public class GenerateQRCode {
         String fileType = "png";
         File qrFile = new File(filePath);
         createQRImage(qrFile, qrCodeText, size, fileType);
-
         File fi = new File(filePath);
         byte[] fileContent = Files.readAllBytes(fi.toPath());
         String encodedString = Base64.getEncoder().encodeToString(fileContent);
-
         return encodedString;
     }
 
@@ -48,13 +46,11 @@ public class GenerateQRCode {
         int matrixWidth = byteMatrix.getWidth();
         BufferedImage image = new BufferedImage(matrixWidth, matrixWidth, BufferedImage.TYPE_INT_RGB);
         image.createGraphics();
-
         Graphics2D graphics = (Graphics2D) image.getGraphics();
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, matrixWidth, matrixWidth);
         // Paint and save the image using the ByteMatrix
         graphics.setColor(Color.BLACK);
-
         for (int i = 0; i < matrixWidth; i++) {
             for (int j = 0; j < matrixWidth; j++) {
                 if (byteMatrix.get(i, j)) {

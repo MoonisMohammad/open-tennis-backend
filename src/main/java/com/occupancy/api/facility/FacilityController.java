@@ -27,9 +27,19 @@ public class FacilityController {
         return facilityService.getFacilities();
     }
 
+
     @GetMapping(path = "owned")
     public List<Facility> getOwnedFacilities(){
         return facilityService.getOwnedFacilities();
+    }
+
+    @GetMapping(path = "filters")
+    public List<Facility> getFilteredFacilities(@RequestParam Double latitude,
+                                                @RequestParam Double longitude,
+                                                @RequestParam String city,
+                                                @RequestParam Double range,
+                                                @RequestParam char unit){
+        return facilityService.getFilteredFacilities(latitude,longitude,city,range,unit);
     }
 
     @PostMapping
@@ -53,7 +63,5 @@ public class FacilityController {
             @RequestParam(required = false) Double longitude){
         facilityService.updateFacility(facilityId,name,city,latitude,longitude);
     }
-
-
 
 }

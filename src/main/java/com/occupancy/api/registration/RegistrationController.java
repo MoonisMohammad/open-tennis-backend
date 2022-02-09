@@ -13,8 +13,6 @@ public class RegistrationController {
 
     private final RegistrationService registrationService;
 
-
-
     @PostMapping
     public Map<String, String> register(@RequestBody RegistrationRequest request) {
         return registrationService.register(request);

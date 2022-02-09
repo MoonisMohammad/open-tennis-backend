@@ -1,5 +1,6 @@
 package com.occupancy.api.device;
 
+import com.occupancy.api.appuser.AppUserRole;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,10 +32,11 @@ public class Device {
     private String name;
     private String authorizationId;
     private boolean inUse;
-    private  int areasMonitored;
+    private  int areasMonitored;@Enumerated(EnumType.STRING)
+    private DeviceType deviceType;
+
 
     public Device(){
-
         this.inUse =false;
         authorizationId = createAuthId();
     }
@@ -48,20 +50,17 @@ public class Device {
         this.ownerId = ownerId;
         this.facilityId =facilityId;
         this.name = name;
-        this.areasMonitored =areasMonitored;
+        this.areasMonitored = areasMonitored;
     }
 
     public String createAuthId(){
-
         int m = (int) Math.pow(10, 4);
         String r = Integer.toString( m + new Random().nextInt(9 * m));
-
         Date dNow = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("yyMMddhhmmssMs");
         String datetime = ft.format(dNow);
         System.out.println(datetime);
         return r + datetime;
-
     }
 
 }

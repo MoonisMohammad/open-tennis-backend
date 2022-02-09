@@ -47,7 +47,6 @@ public class DeviceController {
 
     @PostMapping
     public @ResponseBody String addNewDevice() throws IOException, WriterException {
-
         return deviceService.addNewDevice();
     }
 

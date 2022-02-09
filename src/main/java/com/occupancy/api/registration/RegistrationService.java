@@ -42,8 +42,6 @@ public class RegistrationService {
         emailSender.send(
                 request.getEmail(),
                 buildEmail(request.getFirstName(), link));
-
-
         HashMap<String, String> map = new HashMap<>();
         map.put("token", token);
         map.put("message", "Email Confirmation Sent");
