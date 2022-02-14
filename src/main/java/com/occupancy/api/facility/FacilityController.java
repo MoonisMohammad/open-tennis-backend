@@ -27,6 +27,11 @@ public class FacilityController {
         return facilityService.getFacilities();
     }
 
+    @GetMapping(path = "cities")
+    public City[] getCities(){
+        return facilityService.getCities();
+    }
+
 
     @GetMapping(path = "owned")
     public List<Facility> getOwnedFacilities(){

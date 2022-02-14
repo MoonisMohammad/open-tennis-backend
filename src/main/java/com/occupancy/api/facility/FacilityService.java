@@ -111,6 +111,8 @@ public class FacilityService {
         }
     }
 
+    public City[] getCities(){return City.values();}
+
     public AppUser getCurrentUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser;
