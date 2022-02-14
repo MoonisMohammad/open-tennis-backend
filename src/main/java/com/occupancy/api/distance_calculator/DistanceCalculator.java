@@ -5,7 +5,10 @@ import com.occupancy.api.facility.Facility;
 public class DistanceCalculator {
 
     public   boolean inRange(Facility facility, double lat, double lon, char unit, double range){
-        if(distance(facility.getLatitude(), facility.getLongitude(), lat, lon, unit) <= range){
+        if(facility.getLatitude() != null &&
+                facility.getLongitude() != null &&
+                    distance(facility.getLatitude(), facility.getLongitude(), lat, lon, unit) <= range){
+            System.out.println(distance(facility.getLatitude(), facility.getLongitude(), lat, lon, unit));
             return true;
         }else{
             return false;

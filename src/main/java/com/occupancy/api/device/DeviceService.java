@@ -93,10 +93,15 @@ public class DeviceService {
         Long facilityId = device.getFacilityId();
         String authorizationId = device.getAuthorizationId();
         int areasMonitored = device.getAreasMonitored();
+        DeviceType deviceType = device.getDeviceType();
         String name = device.getName();
 
         Device d = deviceRepository.findByAuthorizationId(authorizationId);
-        d.register(ownerId, facilityId, name,areasMonitored);
+        d.register(ownerId, facilityId, name,areasMonitored,deviceType);
+    }
+
+    public DeviceType[] getTypes(){
+        return DeviceType.values();
     }
 
     public AppUser getCurrentUser(){

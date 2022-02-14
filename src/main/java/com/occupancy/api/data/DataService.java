@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.*;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,7 @@ public class DataService {
         this.deviceRepository = deviceRepository;
     }
 
+    @Transactional
     public void upload(String authorizationId,
                        Data data){
         Device device = deviceRepository.findByAuthorizationId(authorizationId);
@@ -33,6 +35,7 @@ public class DataService {
             throw new IllegalStateException(
                     "Reference number out of bounds for device");
         }
+        device.setCurrOccupancy(data.getRefrenceNumber(), data.getCount());
         data.setFacilityId(device.getFacilityId());
         data.setDeviceId(device.getId());
         dataRepository.save(data);

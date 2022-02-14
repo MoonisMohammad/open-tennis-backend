@@ -32,8 +32,10 @@ public class Device {
     private String name;
     private String authorizationId;
     private boolean inUse;
-    private  int areasMonitored;@Enumerated(EnumType.STRING)
+    private  int areasMonitored;
+    @Enumerated(EnumType.STRING)
     private DeviceType deviceType;
+    private int[] currOccupancy;
 
 
     public Device(){
@@ -45,13 +47,17 @@ public class Device {
         this.inUse =false;
     }
 
-    public void register(Long ownerId,Long facilityId,String name,int areasMonitored){
+    public void register(Long ownerId,Long facilityId,String name,int areasMonitored,DeviceType deviceType){
         this.inUse = true;
         this.ownerId = ownerId;
         this.facilityId =facilityId;
         this.name = name;
         this.areasMonitored = areasMonitored;
+        this.deviceType = deviceType;
+        currOccupancy = new int[areasMonitored];
     }
+
+    public void setCurrOccupancy(int referenceNumber, int count){currOccupancy[referenceNumber] = count;}
 
     public String createAuthId(){
         int m = (int) Math.pow(10, 4);

@@ -38,6 +38,11 @@ public class DeviceController {
         return deviceService.getOwnedDevices();
     }
 
+    @GetMapping(path = "types")
+    public DeviceType[] getTypes(){
+        return deviceService.getTypes();
+    }
+
 
     @PutMapping(path = "register")
     public void registerDevice(

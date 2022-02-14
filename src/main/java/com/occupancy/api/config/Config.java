@@ -39,6 +39,7 @@ public class Config {
                     "manager",
                     "manager@test.com",
                     "Occupancy2022",
+
                     AppUserRole.MANAGER
             );
             testManager.setToManager(Long.valueOf(1));
@@ -63,18 +64,23 @@ public class Config {
         return args -> {
             Facility f1 = new Facility(
                     Long.valueOf("1"),
-                    "Carleton court",
-                    "Carleton"
+                    "Carleton",
+                    "Ottawa",
+                    45.3876,
+                    -75.6976
+
             );
             Facility f2 = new Facility(
-                    Long.valueOf("2"),
-                    "Ottawa court",
-                    "Ottawa park"
+                    Long.valueOf("1"),
+                    "Far Facility",
+                    "Ottawa",
+                    40.7128,
+                    -74.0060
             );
             Facility f3 = new Facility(
                     Long.valueOf("1"),
                     "Ottawa court",
-                    "Ottawa park"
+                    "Ottawa"
             );
             repository.saveAll(
                     List.of(f1,f2,f3)

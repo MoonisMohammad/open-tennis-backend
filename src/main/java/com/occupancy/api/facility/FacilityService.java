@@ -45,8 +45,12 @@ public class FacilityService {
                                                 String city,
                                                 Double range,
                                                 char unit) {
+
+        System.out.println(city);
+
         List<Facility> facilities = facilityRepository.findByCity(city);
-        if(!facilities.isEmpty()) {
+        System.out.println(facilities.size());
+        if(facilities.isEmpty()) {
             throw new IllegalStateException(
                     "No facilities in city "+city);
         }
