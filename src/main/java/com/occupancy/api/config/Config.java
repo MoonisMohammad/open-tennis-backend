@@ -3,7 +3,10 @@ package com.occupancy.api.config;
 import com.occupancy.api.appuser.AppUser;
 import com.occupancy.api.appuser.AppUserRole;
 import com.occupancy.api.appuser.AppUserService;
+import com.occupancy.api.device.Device;
 import com.occupancy.api.device.DeviceRepository;
+import com.occupancy.api.device.DeviceService;
+import com.occupancy.api.device.DeviceType;
 import com.occupancy.api.facility.Facility;
 import com.occupancy.api.facility.FacilityRepository;
 import com.occupancy.api.organization.Organization;
@@ -19,10 +22,12 @@ import java.util.List;
 public class Config {
 
     @Bean
-    CommandLineRunner commandLineRunnerOrganiztion(OrganizationRepository organizationRepository){
+    CommandLineRunner commandLineRunnerOrganization(OrganizationRepository organizationRepository){
         return args -> {
-            Organization org1 = new Organization("TestOrganization" );
+            Organization org1 = new Organization("Municipality Of Ottawa" );
             organizationRepository.save(org1);
+            Organization org2 = new Organization("Lyndwood Tennis Club" );
+            organizationRepository.save(org2);
         };
     }
 
@@ -34,27 +39,38 @@ public class Config {
                     "Occupancy2022",
                     AppUserRole.ADMIN
             );
-            AppUser testManager = new AppUser(
-                    "test",
+            AppUser testManager1 = new AppUser(
+                    "ottawa",
                     "manager",
-                    "manager@test.com",
+                    "ottawaManager@test.com",
                     "Occupancy2022",
 
                     AppUserRole.MANAGER
             );
-            testManager.setToManager(Long.valueOf(1));
+            testManager1.setToManager(Long.valueOf(1));
+            AppUser testManager2 = new AppUser(
+                    "lyndwood",
+                    "manager",
+                    "lyndwoodManager@test.com",
+                    "Occupancy2022",
+
+                    AppUserRole.MANAGER
+            );
+            testManager2.setToManager(Long.valueOf(2));
             AppUser testUser = new AppUser(
                     "test",
                     "user",
-                    "User@test.com",
+                    "user@test.com",
                     "Occupancy2022",
                     AppUserRole.USER
             );
             appUserService.signUpUser(admin1);
-            appUserService.signUpUser(testManager);
+            appUserService.signUpUser(testManager1);
+            appUserService.signUpUser(testManager2);
             appUserService.signUpUser(testUser);
             appUserService.enableAppUser(admin1.getEmail());
-            appUserService.enableAppUser(testManager.getEmail());
+            appUserService.enableAppUser(testManager1.getEmail());
+            appUserService.enableAppUser(testManager2.getEmail());
             appUserService.enableAppUser(testUser.getEmail());
         };
     }
@@ -62,29 +78,38 @@ public class Config {
     @Bean
     CommandLineRunner commandLineRunnerFacility(FacilityRepository repository){
         return args -> {
-            Facility f1 = new Facility(
-                    Long.valueOf("1"),
-                    "Carleton",
-                    "Ottawa",
-                    45.3876,
-                    -75.6976
+            Facility facility = new Facility(
+                    Long.valueOf(2),
+                    "Lyndwood Tennis Club",
+                    "MISSISSAUGA",
+                    43.576630,
+                    -79.571030
+                    );
+            repository.save(facility);
+            ReadSampleData readSampleData = new ReadSampleData();
+            repository.saveAll(readSampleData.readFacilities(Long.valueOf(1)));
+        };
+    }
 
-            );
-            Facility f2 = new Facility(
-                    Long.valueOf("1"),
-                    "Far Facility",
-                    "Ottawa",
-                    40.7128,
-                    -74.0060
-            );
-            Facility f3 = new Facility(
-                    Long.valueOf("1"),
-                    "Ottawa court",
-                    "Ottawa"
-            );
-            repository.saveAll(
-                    List.of(f1,f2,f3)
-            );
+    @Bean
+    CommandLineRunner commandLineRunnerDevice(DeviceRepository deviceRepository){
+        Device device1 = new Device("1OCC9876543210");
+        Device device2 = new Device("2OCC9876543210");
+        return args -> {
+            device1.register(
+                    Long.valueOf(2),
+                    Long.valueOf(1),
+                    "Sample Data Cam",
+                    3,
+                    DeviceType.Tennis);
+            device2.register(
+                    Long.valueOf(2),
+                    Long.valueOf(1),
+                    "Test Upload Cam",
+                    1,
+                    DeviceType.Tennis);
+            deviceRepository.save(device1);
+            deviceRepository.save(device2);
         };
     }
 

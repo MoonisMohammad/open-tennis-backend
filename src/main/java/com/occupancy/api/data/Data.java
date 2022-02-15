@@ -32,7 +32,7 @@ public class Data {
     private Long facilityId;
     private Long deviceId;
     private int count;
-    private int refrenceNumber;
+    private int referenceNumber;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeStamp;
 

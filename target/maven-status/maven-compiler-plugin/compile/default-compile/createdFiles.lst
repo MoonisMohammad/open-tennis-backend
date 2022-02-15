@@ -1,5 +1,6 @@
 com\occupancy\api\email\EmailService.class
 com\occupancy\api\organization\Organization.class
+com\occupancy\api\config\ReadSampleData.class
 com\occupancy\api\registration\EmailCreator.class
 com\occupancy\api\registration\RegistrationRequest.class
 com\occupancy\api\data\Data.class

@@ -43,6 +43,8 @@ public class Device {
         authorizationId = createAuthId();
     }
 
+    public Device(String s) {authorizationId = s;}
+
     public void unregister(){
         this.inUse =false;
     }
