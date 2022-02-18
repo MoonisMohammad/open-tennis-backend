@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,9 +20,17 @@ public class DataViewController {
         this.dataService = dataService;
     }
 
-    @GetMapping(path = "average")
-    public List<Data> test(@RequestParam String deviceId,
-                           @RequestParam String referenceNumber){
-        return dataService.getDataAverages(Long.valueOf(deviceId),Integer.valueOf(referenceNumber));
+    @GetMapping(path = "hourlyAverage")
+    public List<Long> timelyAverage(@RequestParam String deviceId,
+                                    @RequestParam String referenceNumber,
+                                    @RequestParam String dateTime){
+        return dataService.getTimelyDataAverages(Long.valueOf(deviceId),Integer.valueOf(referenceNumber),dateTime);
+    }
+
+    @GetMapping(path = "dailyAverage")
+    public List<Long> dailyAverage(@RequestParam String deviceId,
+                                    @RequestParam String referenceNumber,
+                                    @RequestParam String dateTime){
+        return dataService.getDailyDataAverages(Long.valueOf(deviceId),Integer.valueOf(referenceNumber),dateTime);
     }
 }

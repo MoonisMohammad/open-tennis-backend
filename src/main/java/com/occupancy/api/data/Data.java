@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Random;
 
@@ -33,7 +36,26 @@ public class Data {
     private Long deviceId;
     private int count;
     private int referenceNumber;
+    private DayOfWeek dayOfWeek;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeStamp;
+    private LocalTime time;
+    private LocalDate date;
+    public Data(){}
+    public Data(Long facilityId,
+                Long deviceId,
+                int count,
+                int referenceNumber,
+                DayOfWeek dayOfWeek,
+                LocalDateTime timeStamp){
+        this.facilityId = facilityId;
+        this.deviceId =deviceId;
+        this.count =count;
+        this.referenceNumber =referenceNumber;
+        this.dayOfWeek =dayOfWeek;
+        this.timeStamp =timeStamp;
+        this.time = timeStamp.toLocalTime();
+        this.date = timeStamp.toLocalDate();
+    }
 
 }

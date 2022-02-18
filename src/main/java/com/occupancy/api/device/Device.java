@@ -49,7 +49,11 @@ public class Device {
         this.inUse =false;
     }
 
-    public void register(Long ownerId,Long facilityId,String name,int areasMonitored,DeviceType deviceType){
+    public void register(Long ownerId,
+                         Long facilityId,
+                         String name,
+                         int areasMonitored,
+                         DeviceType deviceType){
         this.inUse = true;
         this.ownerId = ownerId;
         this.facilityId =facilityId;

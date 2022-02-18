@@ -3,6 +3,7 @@ package com.occupancy.api.config;
 import com.occupancy.api.appuser.AppUser;
 import com.occupancy.api.appuser.AppUserRole;
 import com.occupancy.api.appuser.AppUserService;
+import com.occupancy.api.data.DataRepository;
 import com.occupancy.api.device.Device;
 import com.occupancy.api.device.DeviceRepository;
 import com.occupancy.api.device.DeviceService;
@@ -92,7 +93,7 @@ public class Config {
     }
 
     @Bean
-    CommandLineRunner commandLineRunnerDevice(DeviceRepository deviceRepository){
+    CommandLineRunner commandLineRunnerDevice(DeviceRepository deviceRepository) {
         Device device1 = new Device("1OCC9876543210");
         Device device2 = new Device("2OCC9876543210");
         return args -> {
@@ -110,6 +111,13 @@ public class Config {
                     DeviceType.Tennis);
             deviceRepository.save(device1);
             deviceRepository.save(device2);
+        };
+    }
+    @Bean
+    CommandLineRunner commandLineRunnerData(DataRepository dataRepository){
+        return args -> {
+            ReadSampleData readSampleData = new ReadSampleData();
+            dataRepository.saveAll(readSampleData.getOccupancyData(Long.valueOf(1),Long.valueOf(1)));
         };
     }
 
