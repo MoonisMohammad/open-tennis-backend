@@ -3,21 +3,17 @@ package com.occupancy.api.config;
 import com.occupancy.api.appuser.AppUser;
 import com.occupancy.api.appuser.AppUserRole;
 import com.occupancy.api.appuser.AppUserService;
-import com.occupancy.api.data.DataRepository;
 import com.occupancy.api.device.Device;
 import com.occupancy.api.device.DeviceRepository;
-import com.occupancy.api.device.DeviceService;
 import com.occupancy.api.device.DeviceType;
 import com.occupancy.api.facility.Facility;
 import com.occupancy.api.facility.FacilityRepository;
 import com.occupancy.api.organization.Organization;
 import com.occupancy.api.organization.OrganizationRepository;
-import com.occupancy.api.organization.OrganizationService;
+import com.occupancy.api.occupancyData.OccupancyDataRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
 
 @Configuration
 public class Config {
@@ -96,6 +92,7 @@ public class Config {
     CommandLineRunner commandLineRunnerDevice(DeviceRepository deviceRepository) {
         Device device1 = new Device("1OCC9876543210");
         Device device2 = new Device("2OCC9876543210");
+        Device device3 = new Device("3OCC9876543210");
         return args -> {
             device1.register(
                     Long.valueOf(2),
@@ -109,15 +106,23 @@ public class Config {
                     "Test Upload Cam",
                     1,
                     DeviceType.Tennis);
+            device3.register(
+                    Long.valueOf(2),
+                    Long.valueOf(1),
+                    "Random created data Cam",
+                    3,
+                    DeviceType.Tennis);
             deviceRepository.save(device1);
             deviceRepository.save(device2);
+            deviceRepository.save(device3);
         };
     }
     @Bean
-    CommandLineRunner commandLineRunnerData(DataRepository dataRepository){
+    CommandLineRunner commandLineRunnerData(OccupancyDataRepository occupancyDataRepository){
         return args -> {
             ReadSampleData readSampleData = new ReadSampleData();
-            dataRepository.saveAll(readSampleData.getOccupancyData(Long.valueOf(1),Long.valueOf(1)));
+            occupancyDataRepository.saveAll(readSampleData.getOccupancyData(Long.valueOf(1),Long.valueOf(1)));
+            occupancyDataRepository.saveAll(readSampleData.getRandomOccupancyData(Long.valueOf(3),Long.valueOf(1)));
         };
     }
 

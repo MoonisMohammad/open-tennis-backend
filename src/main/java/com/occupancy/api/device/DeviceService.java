@@ -3,14 +3,12 @@ package com.occupancy.api.device;
 import com.google.zxing.WriterException;
 import com.occupancy.api.appuser.AppUser;
 import com.occupancy.api.appuser.AppUserRole;
-import com.occupancy.api.facility.Facility;
 import com.occupancy.api.facility.FacilityRepository;
-import com.occupancy.api.qrcode.GenerateQRCode;
+import com.occupancy.api.device.qrcode.GenerateQRCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
@@ -21,10 +19,13 @@ import java.util.Optional;
 public class DeviceService {
 
     private final DeviceRepository deviceRepository;
+    private final FacilityRepository facilityRepository;
 
     @Autowired
-    public  DeviceService(DeviceRepository deviceRepository){
-        this.deviceRepository =deviceRepository;
+    public  DeviceService(DeviceRepository deviceRepository,
+                          FacilityRepository facilityRepository){
+        this.deviceRepository = deviceRepository;
+        this.facilityRepository =facilityRepository;
     }
 
     public List<Device> getDevices(){return deviceRepository.findAll();}
@@ -68,13 +69,15 @@ public class DeviceService {
 
     @Transactional
     public void updateDevice(Long deviceId,
-                             String name) {
+                             String name,
+                             Integer areasMonitored,
+                             DeviceType deviceType) {
         AppUser appUser = getCurrentUser();
         Device device = deviceRepository.findById(deviceId)
                 .orElseThrow(() ->
                         new IllegalStateException("Device with id " + deviceId + "does not exist"));
         Long deviceOwnerId = device.getOwnerId();
-        Long facilityOwnerId = device.getFacilityId();
+        Long facilityOwnerId = facilityRepository.findById(device.getFacilityId()).get().getOwnerId();
         if (!appUser.getOrganizationId().equals(deviceOwnerId)){
             throw new IllegalStateException(
                     "device with id "+deviceId+"not owned by user");
@@ -83,6 +86,10 @@ public class DeviceService {
                     "facility not owned by user");
         }if(name != null && name.length()>0 && !Objects.equals(device.getName(),name)) {
             device.setName(name);
+        }if(areasMonitored != null ) {
+            device.setName(name);
+        }if(deviceType != null ) {
+            device.setDeviceType(deviceType);
         }
     }
 

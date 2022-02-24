@@ -17,8 +17,7 @@ public class FacilityController {
     }
 
     @GetMapping(path = "{facilityId}")
-    public Facility getFacilityWithId(
-            @PathVariable("facilityId") Long facilityId){
+    public Facility getFacilityWithId(@PathVariable("facilityId") Long facilityId){
         return facilityService.getFacilityWithId(facilityId);
     }
 
@@ -33,10 +32,21 @@ public class FacilityController {
     }
 
 
-    @GetMapping(path = "owned")
-    public List<Facility> getOwnedFacilities(){
-        return facilityService.getOwnedFacilities();
+    @GetMapping(path = "favourite")
+    public List<Facility> getFavouriteFacilities(){return facilityService.getFavouriteFacilities();}
+
+    @PostMapping(path = "favourite/add/{facilityId}")
+    public void addFavouriteFacilities(@PathVariable("facilityId") Long facilityId){
+        facilityService.addFavourite(facilityId);
     }
+
+    @PostMapping(path = "favourite/remove/{facilityId}")
+    public void removeFavouriteFacilities(@PathVariable("facilityId") Long facilityId){
+        facilityService.removeFavourite(facilityId);
+    }
+
+    @GetMapping(path = "owned")
+    public List<Facility> getOwnedFacilities(){ return facilityService.getOwnedFacilities();}
 
     @GetMapping(path = "filters")
     public List<Facility> getFilteredFacilities(@RequestParam Double latitude,
@@ -54,19 +64,18 @@ public class FacilityController {
     }
 
     @DeleteMapping(path = "{facilityId}")
-    public void deleteFacility(
-            @PathVariable("facilityId") Long facilityId){
+    public void deleteFacility(@PathVariable("facilityId") Long facilityId){
         facilityService.deleteFacility(facilityId);
     }
 
     @PutMapping(path = "{facilityId}")
-    public void updateFacility(
-            @PathVariable("facilityId") Long facilityId,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String city,
-            @RequestParam(required = false) Double latitude,
-            @RequestParam(required = false) Double longitude){
-        facilityService.updateFacility(facilityId,name,city,latitude,longitude);
+    public void updateFacility(@PathVariable("facilityId") Long facilityId,
+                               @RequestParam(required = false) String name,
+                               @RequestParam(required = false) String city,
+                               @RequestParam(required = false) Double latitude,
+                               @RequestParam(required = false) Double longitude){
+        facilityService.updateFacility(facilityId,
+                name,city,latitude,longitude);
     }
 
 }

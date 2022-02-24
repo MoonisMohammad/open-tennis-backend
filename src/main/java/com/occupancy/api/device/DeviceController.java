@@ -45,8 +45,7 @@ public class DeviceController {
 
 
     @PutMapping(path = "register")
-    public void registerDevice(
-                                @RequestBody Device device){
+    public void registerDevice(@RequestBody Device device){
         deviceService.registerDevice(device);
     }
 
@@ -58,8 +57,10 @@ public class DeviceController {
     @PutMapping(path = "{deviceId}")
     public void updateDevice(
             @PathVariable("deviceId") Long deviceId,
-            @RequestParam(required = false) String name){
-        deviceService.updateDevice(deviceId,name);
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer areasMonitored,
+            @RequestParam(required = false) DeviceType deviceType){
+        deviceService.updateDevice(deviceId, name, areasMonitored, deviceType);
 
     }
 

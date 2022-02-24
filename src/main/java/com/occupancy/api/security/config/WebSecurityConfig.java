@@ -19,8 +19,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AppUserService appUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -31,14 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated().and()
                 .formLogin();
-
         http
                 .formLogin()
                 .defaultSuccessUrl("/appUser", true);
-
-
-
-
     }
 
     @Override

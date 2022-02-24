@@ -1,5 +1,6 @@
 package com.occupancy.api.appuser;
 
+import com.occupancy.api.facility.Facility;
 import com.occupancy.api.organization.OrganizationRepository;
 import com.occupancy.api.registration.token.ConfirmationToken;
 import com.occupancy.api.registration.token.ConfirmationTokenService;
@@ -21,9 +22,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService {
 
-    private final static String USER_NOT_FOUND_MSG =
-            "user with email %s not found";
-
+    private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
     private final AppUserRepository appUserRepository;
     private final OrganizationRepository organizationRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -50,17 +49,14 @@ public class AppUserService implements UserDetailsService {
                     .findByEmail(appUser.getEmail())
                     .get().getEnabled();
             if(!enabled){
-
                 Long userId = appUserRepository.findByEmail(appUser.getEmail()).get().getId();
                 confirmationTokenService.deleteByAppUser(appUserRepository.findByEmail(appUser.getEmail()).get());
                 appUserRepository.deleteById(userId);
-
             }else{
                 throw new IllegalStateException("email already taken");
             }
         }
-        String encodedPassword = bCryptPasswordEncoder
-                .encode(appUser.getPassword());
+        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);
         appUserRepository.save(appUser);
         String token = UUID.randomUUID().toString();

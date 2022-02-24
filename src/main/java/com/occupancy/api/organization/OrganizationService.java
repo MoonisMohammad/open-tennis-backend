@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.Objects;
 
 @Service
 public class OrganizationService {
@@ -29,7 +28,7 @@ public class OrganizationService {
         }
     }
 
-    public Organization getOrganizatioWithId(Long organizationId){
+    public Organization getOrganizationWithId(Long organizationId){
         if(getCurrentUser().getAppUserRole()== AppUserRole.ADMIN) {
             Optional<Organization> organizationOptional = organizationRepository.findById(organizationId);
             if (!organizationOptional.isPresent()) {

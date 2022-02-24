@@ -1,6 +1,5 @@
 package com.occupancy.api.device;
 
-import com.occupancy.api.facility.Facility;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

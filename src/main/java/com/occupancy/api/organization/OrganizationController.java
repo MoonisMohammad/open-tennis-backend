@@ -3,8 +3,6 @@ package com.occupancy.api.organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
-import java.util.Objects;
 
 @RestController
 @RequestMapping(path = "organization")
@@ -24,7 +22,7 @@ public class OrganizationController {
 
     @GetMapping(path = "{organizationId}")
     public  Organization getOrganizationWithId(@PathVariable("organizationId") Long organizationId){
-        return organizationService.getOrganizatioWithId(organizationId);
+        return organizationService.getOrganizationWithId(organizationId);
     }
 
     @PostMapping
@@ -39,9 +37,8 @@ public class OrganizationController {
     }
 
     @PutMapping(path = "{organizationId}")
-    public void updateOrganization(
-            @PathVariable("organizationId") Long organizationId,
-            @RequestParam(required = true) String name){
+    public void updateOrganization(@PathVariable("organizationId") Long organizationId,
+                                   @RequestParam(required = true) String name){
         organizationService.updateOrganization(organizationId,name);
     }
 

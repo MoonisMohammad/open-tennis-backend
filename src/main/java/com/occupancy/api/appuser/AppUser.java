@@ -1,5 +1,6 @@
 package com.occupancy.api.appuser;
 
+import com.occupancy.api.facility.Facility;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -39,6 +41,8 @@ public class AppUser implements UserDetails {
     private AppUserRole appUserRole;
     private Boolean locked = false;
     private Boolean enabled = false;
+    private long[] favourites;
+    private int favouritesSize = 0;
 
     public AppUser(String email,
                    String password,
@@ -58,6 +62,30 @@ public class AppUser implements UserDetails {
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
+        this.favourites= new long[10];
+    }
+
+    public boolean addFavourite(Long facilityId){
+        if(favouritesSize != 10) {
+            favouritesSize++;
+            favourites[favouritesSize - 1] = facilityId;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeFavourites(Long facilityId){
+        if(favouritesSize == 0) return false;
+        for(int i =0;i < favouritesSize;i++ ){
+                if(favourites[i] == facilityId){
+                    favouritesSize--;
+                    for(int j =i;j < favouritesSize;j++ ){
+                        favourites[j] = favourites[j+1];
+                    }
+                    return true;
+                }
+        }
+        return false;
     }
 
     public void setToManager(Long companyId){

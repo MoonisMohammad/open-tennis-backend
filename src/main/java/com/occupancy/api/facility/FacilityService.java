@@ -1,9 +1,12 @@
 package com.occupancy.api.facility;
 
 import com.occupancy.api.appuser.AppUser;
-import com.occupancy.api.distance_calculator.DistanceCalculator;
+import com.occupancy.api.appuser.AppUserRepository;
+import com.occupancy.api.appuser.AppUserService;
+import com.occupancy.api.facility.distance_calculator.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,10 +19,13 @@ import java.util.Objects;
 public class FacilityService {
 
     private final FacilityRepository facilityRepository;
+    private final AppUserRepository appUserRepository;
 
     @Autowired
-    public FacilityService(FacilityRepository facilityRepository) {
+    public FacilityService(FacilityRepository facilityRepository,
+                           AppUserRepository appUserRepository) {
         this.facilityRepository = facilityRepository;
+        this.appUserRepository = appUserRepository;
     }
 
     public List<Facility> getFacilities(){
@@ -109,6 +115,34 @@ public class FacilityService {
         }if(longitude !=null && !Objects.equals(facility.getLongitude(),longitude)) {
             facility.setLongitude(longitude);
         }
+    }
+
+    public List<Facility> getFavouriteFacilities() {
+        Long appUserId = getCurrentUser().getId();
+        AppUser appUser = appUserRepository.findById(appUserId).get();
+        ArrayList<Long> facilityIds = new ArrayList<Long>();
+        ArrayList<Facility> facilities = new ArrayList<Facility>();
+        for(int i = 0;i < appUser.getFavouritesSize();i++){
+
+            facilities.add(getFacilityWithId(appUser.getFavourites()[i]));
+        }
+        return  facilities;
+    }
+
+    @Transactional
+    public void addFavourite(Long facilityId){
+        Long appUserId = getCurrentUser().getId();
+        AppUser appUser = appUserRepository.findById(appUserId).get();
+        Facility facility = getFacilityWithId(facilityId);
+        appUser.addFavourite(facilityId);
+    }
+
+    @Transactional
+    public void removeFavourite(Long facilityId){
+        Long appUserId = getCurrentUser().getId();
+        AppUser appUser = appUserRepository.findById(appUserId).get();
+        Facility facility = getFacilityWithId(facilityId);
+        appUser.removeFavourites(facilityId);
     }
 
     public City[] getCities(){return City.values();}
