@@ -150,26 +150,26 @@ public class ReadSampleData {
         while (startDateTime.isBefore(currDateTime)) {
             int count = 0;
             if (startDateTime.getDayOfWeek().getValue() == DayOfWeek.SUNDAY.getValue()) {
-                count = 5;
+                count = getRandomNumber(2,5);
             }
             if (startDateTime.getDayOfWeek().getValue() == DayOfWeek.MONDAY.getValue()) {
-                count = getRandomNumber(0,2);
+                count = getRandomNumber(1,2);
             }
             if (startDateTime.getDayOfWeek().getValue() == DayOfWeek.TUESDAY.getValue()) {
-                count = getRandomNumber(0,1);
+                count = getRandomNumber(1,3);
             }
             if (startDateTime.getDayOfWeek().getValue() == DayOfWeek.WEDNESDAY.getValue()) {
-                count = getRandomNumber(0,2);
+                count = getRandomNumber(1,3);
 
             }
             if (startDateTime.getDayOfWeek().getValue() == DayOfWeek.THURSDAY.getValue()) {
-                count = getRandomNumber(0,4);
+                count = getRandomNumber(1,4);
             }
             if (startDateTime.getDayOfWeek().getValue() == DayOfWeek.FRIDAY.getValue()) {
-                count = getRandomNumber(0,5);
+                count = getRandomNumber(2,4);
             }
             if (startDateTime.getDayOfWeek().getValue() == DayOfWeek.SATURDAY.getValue()) {
-                count = getRandomNumber(0,5);
+                count = getRandomNumber(2,5);
             }
             if(count != 0){
                 OccupancyData simData = new OccupancyData(facilityId,

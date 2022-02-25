@@ -40,7 +40,7 @@ public class FacilityController {
         facilityService.addFavourite(facilityId);
     }
 
-    @PostMapping(path = "favourite/remove/{facilityId}")
+    @DeleteMapping(path = "favourite/remove/{facilityId}")
     public void removeFavouriteFacilities(@PathVariable("facilityId") Long facilityId){
         facilityService.removeFavourite(facilityId);
     }

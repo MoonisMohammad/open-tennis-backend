@@ -1,11 +1,13 @@
 package com.occupancy.api.occupancyData;
 
+import com.occupancy.api.facility.Facility;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.crypto.Data;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -18,7 +20,7 @@ public interface OccupancyDataRepository extends JpaRepository<OccupancyData,Lon
     @Query(
             "SELECT d FROM " +
                     "OccupancyData d WHERE " +
-                        "d.timeStamp <= :receivedDate and " +
+                        "d.timeStamp >= :receivedDate and " +
                         "d.time >= :from and " +
                         "d.time <= :to and " +
                         "d.deviceId = :receivedDeviceId and " +
@@ -28,17 +30,15 @@ public interface OccupancyDataRepository extends JpaRepository<OccupancyData,Lon
                                              @Param("to") LocalTime to,
                                              @Param("receivedDeviceId") Long receivedDeviceId,
                                              @Param("receivedReferenceNumber") int receivedReferenceNumber);
-
     @Query(
-            "SELECT SUM(d.count) FROM " +
+            "SELECT d FROM " +
                     "OccupancyData d WHERE " +
-                        "d.timeStamp <= :receivedDate and " +
+                        "d.timeStamp <= :to and " +
+                        "d.timeStamp >= :from and " +
                         "d.deviceId = :receivedDeviceId and " +
-                        "d.referenceNumber = :receivedReferenceNumber and " +
-                        "d.dayOfWeek = :dayOfWeek")
-    Long findTotalCountLast30Days(@Param("receivedDate") LocalDateTime receivedDate,
-                                  @Param("receivedDeviceId") Long receivedDeviceId,
-                                  @Param("receivedReferenceNumber") int receivedReferenceNumber,
-                                  @Param("dayOfWeek") DayOfWeek dayOfWeek);
-
+                        "d.referenceNumber = :receivedReferenceNumber")
+    List<OccupancyData> getBetween(@Param("from") LocalDateTime from,
+                          @Param("to") LocalDateTime to,
+                          @Param("receivedDeviceId") Long receivedDeviceId,
+                          @Param("receivedReferenceNumber") int receivedReferenceNumber);
 }
