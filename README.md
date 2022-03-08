@@ -11,8 +11,10 @@ The backend has an API key to make sure only registered devices are allowed to u
 ## Installation steps
 
 1. Install Java - Download and install ```java JDK 11``` from https://openjdk.java.net/projects/jdk/11/. 
-2. Install rails - Download and install ```PostgreSQL```
-3. Open the url shown on the command prompt after running above command in Chrome browser to access the application (http://localhost:8080/)
+2. Install rails - Download and install ```PostgreSQL``` set user postgres password to ```moonis221199```
+3. cd into target folder ```target```
+4. run command ``` java -jar demo-0.0.1-SNAPSHOT.jar```
+5. Open the url shown on the command prompt after running above command in Chrome browser to access the application (http://localhost:8080/)
 
 ## Guiding principles
 

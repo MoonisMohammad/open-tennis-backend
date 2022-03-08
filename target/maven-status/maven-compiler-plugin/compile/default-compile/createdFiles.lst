@@ -10,6 +10,7 @@ com\occupancy\api\appuser\AppUserRepository.class
 com\occupancy\api\device\Device.class
 com\occupancy\api\email\EmailSender.class
 com\occupancy\api\device\DeviceController.class
+com\occupancy\api\device\DeviceRegistrationRequest.class
 com\occupancy\api\facility\City.class
 com\occupancy\api\appuser\AppUserRole.class
 com\occupancy\api\registration\token\ConfirmationToken.class
