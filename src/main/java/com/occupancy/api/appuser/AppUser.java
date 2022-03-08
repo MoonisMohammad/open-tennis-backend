@@ -1,6 +1,5 @@
 package com.occupancy.api.appuser;
 
-import com.occupancy.api.facility.Facility;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +7,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -129,13 +126,5 @@ public class AppUser implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
-
-    public String getFirstName() {return firstName;}
-
-    public String getLastName() {return lastName;}
-
-    public Long getId(){return id;}
-
-    public Long getOrganizationId(){return organizationId;}
 
 }

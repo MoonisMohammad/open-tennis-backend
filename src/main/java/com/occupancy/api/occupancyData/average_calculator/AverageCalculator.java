@@ -1,7 +1,5 @@
 package com.occupancy.api.occupancyData.average_calculator;
-
 import com.occupancy.api.occupancyData.OccupancyData;
-
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,6 @@ public class AverageCalculator {
             }if(occupancyData.getDayOfWeek().equals(DayOfWeek.valueOf("SATURDAY"))){
                 saturdayAverage = Long.valueOf(occupancyData.getCount()) + saturdayAverage;
             }
-
         }
         ArrayList<Double> weeklyAverage = new ArrayList<Double>();
         weeklyAverage.add(sundayAverage/interval);

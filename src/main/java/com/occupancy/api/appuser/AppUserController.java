@@ -25,9 +25,8 @@ public class AppUserController {
     }
 
     @PutMapping(path = "{appUserId}")
-    public void setToManager(
-            @PathVariable("appUserId") Long appUserId,
-            @RequestParam(required = true) Long organizationId){
+    public void setToManager(@PathVariable("appUserId") Long appUserId,
+                             @RequestParam(required = true) Long organizationId){
         appUserService.setToManager(organizationId,appUserId);
     }
 }

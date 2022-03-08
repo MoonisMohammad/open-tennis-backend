@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.xml.crypto.Data;
 import java.util.List;
 
 @RestController
@@ -29,9 +27,9 @@ public class OccupancyDataViewController {
 
     @GetMapping(path = "between")
     public List<OccupancyData> getBetween(@RequestParam String fromDateTime,
-                                 @RequestParam String ToDateTime,
-                                 @RequestParam Long deviceId,
-                                 @RequestParam int referenceNumber){
+                                          @RequestParam String ToDateTime,
+                                          @RequestParam Long deviceId,
+                                          @RequestParam int referenceNumber){
         return dataService.getBetween(fromDateTime,ToDateTime,deviceId,referenceNumber);
     }
 }

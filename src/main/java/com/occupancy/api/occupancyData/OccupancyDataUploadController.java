@@ -14,11 +14,6 @@ public class OccupancyDataUploadController {
         this.dataService = dataService;
     }
 
-    @GetMapping
-    public String test(){
-        return "hello";
-    }
-
     @PostMapping(path = "{authorizationId}")
     public void upload(@PathVariable("authorizationId")  String authorizationId,
                        @RequestBody OccupancyData data){

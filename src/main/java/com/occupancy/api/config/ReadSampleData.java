@@ -4,11 +4,9 @@ import com.occupancy.api.occupancyData.OccupancyData;
 import com.occupancy.api.facility.Facility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -172,12 +170,14 @@ public class ReadSampleData {
                 count = getRandomNumber(2,5);
             }
             if(count != 0){
+                System.out.println();
                 OccupancyData simData = new OccupancyData(facilityId,
-                        deviceId,
-                        count,
-                        reference,
-                        startDateTime.getDayOfWeek(),
-                        startDateTime);
+                                                          deviceId,
+                                                          count,
+                                                          reference,
+                                                          startDateTime.getDayOfWeek(),
+                                                          startDateTime);
+                System.out.println(simData.getTimeStamp()+" "+simData.getDayOfWeek());
                 dataList.add(simData);
             }
             startDateTime = startDateTime.plusMinutes(10);
@@ -238,8 +238,8 @@ public class ReadSampleData {
         return LocalDateTime.parse(d.split("\\s+")[0]+" "+time,formatter).plusDays(extra);
     }
 
-    //Get random number between min and  max - 1
-    public int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
+    //Get random number between a and  b - 1
+    public int getRandomNumber(int a, int b) {
+        return (int) ((Math.random() * (b - a)) + a);
     }
 }

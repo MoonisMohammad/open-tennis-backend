@@ -54,7 +54,7 @@ public class OccupancyDataService {
         device.setCurrOccupancy(data.getReferenceNumber(), data.getCount());
         data.setFacilityId(device.getFacilityId());
         data.setDeviceId(device.getId());
-        data.setDayOfWeek(data.getTimeStamp().getDayOfWeek());
+        data.setDayOfWeek(data.getTimeStamp().getDayOfWeek().getValue());
         data.setDate(data.getTimeStamp().toLocalDate());
         data.setTime(data.getTimeStamp().toLocalTime());
         dataRepository.save(data);

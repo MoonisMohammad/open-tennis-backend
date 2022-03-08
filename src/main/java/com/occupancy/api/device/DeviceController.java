@@ -22,14 +22,12 @@ public class DeviceController {
     }
 
     @GetMapping(path = "{deviceId}")
-    public Device getDeviceWithId(
-            @PathVariable("deviceId") Long deviceId){
+    public Device getDeviceWithId(@PathVariable("deviceId") Long deviceId){
         return deviceService.getDeviceWithId(deviceId);
     }
 
     @GetMapping(path = "inFacility/{facilityId}")
-    public List<Device> getDevicesWithFacilityId(
-            @PathVariable("facilityId") Long facilityId){
+    public List<Device> getDevicesWithFacilityId(@PathVariable("facilityId") Long facilityId){
         return deviceService.getDevicesWithFacilityId(facilityId);
     }
 
@@ -55,11 +53,10 @@ public class DeviceController {
     }
 
     @PutMapping(path = "{deviceId}")
-    public void updateDevice(
-            @PathVariable("deviceId") Long deviceId,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) Integer areasMonitored,
-            @RequestParam(required = false) DeviceType deviceType){
+    public void updateDevice(@PathVariable("deviceId") Long deviceId,
+                             @RequestParam(required = false) String name,
+                             @RequestParam(required = false) Integer areasMonitored,
+                             @RequestParam(required = false) DeviceType deviceType){
         deviceService.updateDevice(deviceId, name, areasMonitored, deviceType);
 
     }

@@ -41,7 +41,6 @@ public class Config {
                     "manager",
                     "ottawaManager@test.com",
                     "Occupancy2022",
-
                     AppUserRole.MANAGER
             );
             testManager1.setToManager(Long.valueOf(1));
@@ -50,7 +49,6 @@ public class Config {
                     "manager",
                     "lyndwoodManager@test.com",
                     "Occupancy2022",
-
                     AppUserRole.MANAGER
             );
             testManager2.setToManager(Long.valueOf(2));

@@ -3,7 +3,6 @@ package com.occupancy.api.occupancyData;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,7 +32,7 @@ public class OccupancyData {
     private Long deviceId;
     private int count;
     private int referenceNumber;
-    private DayOfWeek dayOfWeek;
+    private int dayOfWeek;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeStamp;
     private LocalTime time;
@@ -49,10 +48,14 @@ public class OccupancyData {
         this.deviceId = deviceId;
         this.count = count;
         this.referenceNumber = referenceNumber;
-        this.dayOfWeek = dayOfWeek;
+        this.dayOfWeek = dayOfWeek.getValue();
         this.timeStamp = timeStamp;
         this.time = timeStamp.toLocalTime();
         this.date = timeStamp.toLocalDate();
+    }
+
+    public DayOfWeek getDayOfWeek(){
+        return DayOfWeek.of(dayOfWeek);
     }
 
 }

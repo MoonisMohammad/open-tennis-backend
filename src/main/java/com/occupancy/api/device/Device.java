@@ -1,9 +1,8 @@
 package com.occupancy.api.device;
 
-import com.occupancy.api.appuser.AppUserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -27,7 +26,8 @@ public class Device {
 
     )
     private Long id;
-    private Long ownerId; //organization that owns the device
+    //organization that owns the device
+    private Long ownerId;
     private  Long facilityId;
     private String name;
     private String authorizationId;
@@ -42,6 +42,9 @@ public class Device {
         this.inUse =false;
         authorizationId = createAuthId();
     }
+
+    @JsonIgnore
+    public String getAuthorizationId(){return authorizationId;}
 
     public Device(String s) {authorizationId = s;}
 
