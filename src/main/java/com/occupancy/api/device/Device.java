@@ -43,6 +43,20 @@ public class Device {
         authorizationId = createAuthId();
     }
 
+    public Device(Long ownerId,
+                  Long facilityId,
+                  String name,
+                  int areasMonitored,
+                  DeviceType deviceType){
+        this.inUse = true;
+        this.ownerId = ownerId;
+        this.facilityId =facilityId;
+        this.name = name;
+        this.areasMonitored = areasMonitored;
+        this.deviceType = deviceType;
+        currOccupancy = new int[areasMonitored];
+    }
+
     @JsonIgnore
     public String getAuthorizationId(){return authorizationId;}
 

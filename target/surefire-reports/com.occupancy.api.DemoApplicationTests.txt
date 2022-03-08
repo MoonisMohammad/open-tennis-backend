@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.occupancy.api.DemoApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 34.432 s - in com.occupancy.api.DemoApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 57.051 s - in com.occupancy.api.DemoApplicationTests

@@ -1,17 +1,22 @@
 package com.occupancy.api.device;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.WriterException;
 import com.occupancy.api.appuser.AppUser;
 import com.occupancy.api.appuser.AppUserRole;
 import com.occupancy.api.facility.FacilityRepository;
 import com.occupancy.api.device.qrcode.GenerateQRCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -61,7 +66,7 @@ public class DeviceService {
 
         GenerateQRCode g = new GenerateQRCode();
 
-        System.out.println(device.getAuthorizationId());
+        System.out.println("Generated QR Code"+ device.getAuthorizationId());
 
         return GenerateQRCode.tryQr(device.getAuthorizationId());
 
@@ -94,17 +99,20 @@ public class DeviceService {
     }
 
     @Transactional
-    public void registerDevice(Device device){
+    public void registerDevice(DeviceRegistrationRequest deviceRegistrationRequest) throws JsonProcessingException {
         AppUser appUser = getCurrentUser();
         Long ownerId = appUser.getOrganizationId();
-        Long facilityId = device.getFacilityId();
-        String authorizationId = device.getAuthorizationId();
-        int areasMonitored = device.getAreasMonitored();
-        DeviceType deviceType = device.getDeviceType();
-        String name = device.getName();
-
-        Device d = deviceRepository.findByAuthorizationId(authorizationId);
-        d.register(ownerId, facilityId, name,areasMonitored,deviceType);
+        Long facilityId = deviceRegistrationRequest.getFacilityId();
+        String authorizationId = deviceRegistrationRequest.getAuthorizationId();
+        Integer areasMonitored = deviceRegistrationRequest.getAreasMonitored();
+        DeviceType deviceType = deviceRegistrationRequest.getDeviceType();
+        String name = deviceRegistrationRequest.getName();
+        Device device = deviceRepository.findByAuthorizationId(authorizationId);
+        if(device!=null){
+            System.out.println(device.getAreasMonitored() +"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            device.register(ownerId, facilityId, name,areasMonitored,deviceType);
+        }
+        System.out.println(authorizationId+"{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
     }
 
     public DeviceType[] getTypes(){

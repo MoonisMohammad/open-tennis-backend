@@ -1,8 +1,10 @@
 package com.occupancy.api.device;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.zxing.WriterException;
 import com.occupancy.api.facility.Facility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,8 +45,8 @@ public class DeviceController {
 
 
     @PutMapping(path = "register")
-    public void registerDevice(@RequestBody Device device){
-        deviceService.registerDevice(device);
+    public void registerDevice(@RequestBody  DeviceRegistrationRequest deviceRegistrationRequest) throws JsonProcessingException {
+        deviceService.registerDevice(deviceRegistrationRequest);
     }
 
     @PostMapping
@@ -57,6 +59,7 @@ public class DeviceController {
                              @RequestParam(required = false) String name,
                              @RequestParam(required = false) Integer areasMonitored,
                              @RequestParam(required = false) DeviceType deviceType){
+
         deviceService.updateDevice(deviceId, name, areasMonitored, deviceType);
 
     }
