@@ -20,7 +20,7 @@ This project was designed with model-view-controller (MVC)  design pattern. The 
 
 - Models for handling data and business logic 
 - Controllers for user interface and application logic
-- Views for handling graphical user interface objects and presentation
+- Views for handling API's for graphical user interface objects and presentation
 
 ## Contact
 
