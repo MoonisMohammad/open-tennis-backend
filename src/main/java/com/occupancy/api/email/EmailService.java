@@ -20,6 +20,7 @@ public class EmailService implements EmailSender{
 
     private final JavaMailSender mailSender;
 
+    //sends the email using mail sender
     @Override
     @Async
     public void send(String to, String email) {

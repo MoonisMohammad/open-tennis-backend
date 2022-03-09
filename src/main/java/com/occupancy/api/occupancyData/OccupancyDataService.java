@@ -24,6 +24,7 @@ public class OccupancyDataService {
         this.deviceRepository = deviceRepository;
     }
 
+    //gets average of weekdays based on time and provide date
     public List<Double> getTimelyDataAverages(Long deviceId,
                                               Integer referenceNumber,
                                               String now){
@@ -39,6 +40,7 @@ public class OccupancyDataService {
         return averageCalculator.calculateAverage(dataRepository.findAllWithDateAfter(thirtyFiveDaysAgoDate,from,to,deviceId,referenceNumber),intervals);
     }
 
+    //uploads data to the database if it's a valid authorization id
     @Transactional
     public void upload(String authorizationId,
                        OccupancyData data){
@@ -60,6 +62,7 @@ public class OccupancyDataService {
         dataRepository.save(data);
     }
 
+    //gets all occupancy for device between two dates
     public List<OccupancyData> getBetween(String fromDateTime,
                                  String toDateTime,
                                  Long deviceId,

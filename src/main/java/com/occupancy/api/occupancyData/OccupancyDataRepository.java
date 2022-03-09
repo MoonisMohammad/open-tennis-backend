@@ -13,6 +13,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface OccupancyDataRepository extends JpaRepository<OccupancyData,Long> {
 
+    //finds all occupancy data in provide tim rang form the given date with matching deviceId and reference Number
     @Query(
             "SELECT d FROM " +
                     "OccupancyData d WHERE " +
@@ -26,6 +27,8 @@ public interface OccupancyDataRepository extends JpaRepository<OccupancyData,Lon
                                              @Param("to") LocalTime to,
                                              @Param("receivedDeviceId") Long receivedDeviceId,
                                              @Param("receivedReferenceNumber") int receivedReferenceNumber);
+
+    //finds all occupancy data in provided date ranges with matching deviceId and reference Number
     @Query(
             "SELECT d FROM " +
                     "OccupancyData d WHERE " +

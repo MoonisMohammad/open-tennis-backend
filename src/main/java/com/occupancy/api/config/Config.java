@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Config {
 
+    //Test organizations
     @Bean
     CommandLineRunner commandLineRunnerOrganization(OrganizationRepository organizationRepository){
         return args -> {
@@ -28,6 +29,7 @@ public class Config {
         };
     }
 
+    //Test Accounts and admin accounts
     @Bean
     CommandLineRunner commandLineRunnerAppUser(AppUserService appUserService){
         return args -> {
@@ -70,6 +72,7 @@ public class Config {
         };
     }
 
+    //Test facilities
     @Bean
     CommandLineRunner commandLineRunnerFacility(FacilityRepository repository){
         return args -> {
@@ -86,6 +89,7 @@ public class Config {
         };
     }
 
+    //Test Devices
     @Bean
     CommandLineRunner commandLineRunnerDevice(DeviceRepository deviceRepository) {
         Device device1 = new Device("1OCC9876543210");

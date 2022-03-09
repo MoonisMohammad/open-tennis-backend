@@ -28,10 +28,12 @@ public class FacilityService {
         this.appUserRepository = appUserRepository;
     }
 
+    //return all facilities in database
     public List<Facility> getFacilities(){
         return facilityRepository.findAll();
     }
 
+    //return all facilities with provided id
     public Facility getFacilityWithId(Long facilityId) {
         Optional<Facility> facilityOptional = facilityRepository.findById(facilityId);
         if(!facilityOptional.isPresent()) {
@@ -41,11 +43,13 @@ public class FacilityService {
         return facilityOptional.get();
     }
 
+    //get facilities owned by the user
     public List<Facility> getOwnedFacilities(){
         AppUser appUser = getCurrentUser();
         return facilityRepository.findByOwnerId(appUser.getOrganizationId());
     }
 
+    //uses filtering params to get in range facilities
     public List<Facility> getFilteredFacilities(Double latitude,
                                                 Double longitude,
                                                 String city,
@@ -70,12 +74,14 @@ public class FacilityService {
         return filtered;
     }
 
+    //add new facility to database
     public void addNewFacility(Facility facility){
         AppUser appUser = getCurrentUser();
         facility.setOwnerId(appUser.getOrganizationId());
         facilityRepository.save(facility);
     }
 
+    //delete a facility with given id from database
     public void deleteFacility(Long facilityId){
         AppUser appUser = getCurrentUser();
         Optional<Facility> facilityOptional = facilityRepository.findById(facilityId);
@@ -92,6 +98,7 @@ public class FacilityService {
         }
     }
 
+    //update the  facility  with given id
     @Transactional
     public void updateFacility(Long facilityId,
                                String name,
@@ -117,6 +124,7 @@ public class FacilityService {
         }
     }
 
+    //gets list of facilities favourite by user
     public List<Facility> getFavouriteFacilities() {
         Long appUserId = getCurrentUser().getId();
         AppUser appUser = appUserRepository.findById(appUserId).get();
@@ -129,6 +137,7 @@ public class FacilityService {
         return  facilities;
     }
 
+    //ad ne facility to favourites
     @Transactional
     public void addFavourite(Long facilityId){
         Long appUserId = getCurrentUser().getId();
@@ -137,6 +146,7 @@ public class FacilityService {
         appUser.addFavourite(facilityId);
     }
 
+    //remove a facility from favourites
     @Transactional
     public void removeFavourite(Long facilityId){
         Long appUserId = getCurrentUser().getId();
@@ -145,8 +155,10 @@ public class FacilityService {
         appUser.removeFavourites(facilityId);
     }
 
+    //get a list all city supported by the backend
     public City[] getCities(){return City.values();}
 
+    //get information of current user
     public AppUser getCurrentUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser;

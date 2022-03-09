@@ -19,6 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AppUserService appUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    //rules for login
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -39,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
+    //set  password authentication provider as Bcrypt
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider =

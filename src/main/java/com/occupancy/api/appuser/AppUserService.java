@@ -28,6 +28,7 @@ public class AppUserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
+    //Return all user Info
     @Override
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
@@ -37,6 +38,7 @@ public class AppUserService implements UserDetailsService {
                                 String.format(USER_NOT_FOUND_MSG, email)));
     }
 
+    //signs up a new user if their email is valid and not already taken
     public String signUpUser(AppUser appUser) {
         boolean userExists = appUserRepository
                 .findByEmail(appUser.getEmail())
@@ -72,6 +74,7 @@ public class AppUserService implements UserDetailsService {
         return token;
     }
 
+    //Enables a user account after confirmation
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
     }
@@ -93,6 +96,7 @@ public class AppUserService implements UserDetailsService {
         }
     }
 
+    //promotes general user to manager role
     @Transactional
     public void setToManager(Long organizationId, Long appUserId){
         if(getCurrentUser().getAppUserRole() == AppUserRole.ADMIN){
@@ -113,6 +117,7 @@ public class AppUserService implements UserDetailsService {
         }
     }
 
+    //gets currently logged in user
     public AppUser getCurrentUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser;

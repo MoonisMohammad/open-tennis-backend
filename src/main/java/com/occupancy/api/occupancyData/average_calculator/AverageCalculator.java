@@ -6,6 +6,7 @@ import java.util.List;
 
 public class AverageCalculator {
 
+    //return a weekly list of averages from the provided list
     public List<Double> calculateAverage(List<OccupancyData> dataList,
                                          Long interval){
         Double sundayAverage = Double.valueOf(0);

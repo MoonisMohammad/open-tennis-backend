@@ -19,6 +19,7 @@ public class OrganizationService {
         this.organizationRepository = organizationRepository;
     }
 
+    //return all organizations
     public List<Organization> getOrganizations() {
         if(getCurrentUser().getAppUserRole()== AppUserRole.ADMIN) {
             return organizationRepository.findAll();
@@ -28,6 +29,8 @@ public class OrganizationService {
         }
     }
 
+
+    //get organization with specific id
     public Organization getOrganizationWithId(Long organizationId){
         if(getCurrentUser().getAppUserRole()== AppUserRole.ADMIN) {
             Optional<Organization> organizationOptional = organizationRepository.findById(organizationId);
@@ -42,6 +45,7 @@ public class OrganizationService {
         }
     }
 
+    //add new organization to the backend
     public void addNewOrganization(Organization organization) {
         if(getCurrentUser().getAppUserRole()== AppUserRole.ADMIN) {
             organizationRepository.save(organization);
@@ -51,6 +55,7 @@ public class OrganizationService {
         }
     }
 
+    //delete the organization with provided id
     public void deleteOrganization(Long organizationId){
         if(getCurrentUser().getAppUserRole()== AppUserRole.ADMIN) {
             organizationRepository.deleteById(organizationId);
@@ -60,6 +65,7 @@ public class OrganizationService {
         }
     }
 
+    //updates the current organization
     @Transactional
     public void updateOrganization(Long organizationId,
                                    String name) {
@@ -74,6 +80,7 @@ public class OrganizationService {
         }
     }
 
+    //get information on current user
     public AppUser getCurrentUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser;

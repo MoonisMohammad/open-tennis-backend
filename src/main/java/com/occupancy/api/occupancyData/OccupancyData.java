@@ -54,6 +54,7 @@ public class OccupancyData {
         this.date = timeStamp.toLocalDate();
     }
 
+    //return the day of week the data was uploaded
     public DayOfWeek getDayOfWeek(){
         return DayOfWeek.of(dayOfWeek);
     }

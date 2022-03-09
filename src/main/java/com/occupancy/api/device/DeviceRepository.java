@@ -9,10 +9,13 @@ import java.util.Optional;
 @Repository
 public interface DeviceRepository extends JpaRepository<Device,Long>{
 
+    //find all devices with given user id
     List<Device> findByOwnerId(Long ownerId);
 
+    //find all devices with given auth id
     Device findByAuthorizationId(String authorizationId);
 
+    //find all devices with given facility id
     List<Device> findByFacilityId(Long facilityId);
 
 

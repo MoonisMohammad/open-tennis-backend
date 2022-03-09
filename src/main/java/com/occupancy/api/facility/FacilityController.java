@@ -15,38 +15,45 @@ public class FacilityController {
         this.facilityService = facilityService;
     }
 
+    //returns facility with given id
     @GetMapping(path = "{facilityId}")
     public Facility getFacilityWithId(@PathVariable("facilityId") Long facilityId){
         return facilityService.getFacilityWithId(facilityId);
     }
 
+    //returns all facilities
     @GetMapping
     public List<Facility> getFacilities(){
         return facilityService.getFacilities();
     }
 
+    //returns a list of all cities supported by backend
     @GetMapping(path = "cities")
     public City[] getCities(){
         return facilityService.getCities();
     }
 
-
+    //returns the list of cureent users favourite facilities
     @GetMapping(path = "favourite")
     public List<Facility> getFavouriteFacilities(){return facilityService.getFavouriteFacilities();}
 
+    //adds new facility to favourite
     @PostMapping(path = "favourite/add/{facilityId}")
     public void addFavouriteFacilities(@PathVariable("facilityId") Long facilityId){
         facilityService.addFavourite(facilityId);
     }
 
+    //removes facility with given id from favourite
     @DeleteMapping(path = "favourite/remove/{facilityId}")
     public void removeFavouriteFacilities(@PathVariable("facilityId") Long facilityId){
         facilityService.removeFavourite(facilityId);
     }
 
+    //returns list of facilities owned by user organization
     @GetMapping(path = "owned")
     public List<Facility> getOwnedFacilities(){ return facilityService.getOwnedFacilities();}
 
+    //return filtered facilities based on range, city and current latitude and longitude
     @GetMapping(path = "filters")
     public List<Facility> getFilteredFacilities(@RequestParam Double latitude,
                                                 @RequestParam Double longitude,
@@ -56,6 +63,7 @@ public class FacilityController {
         return facilityService.getFilteredFacilities(latitude,longitude,city,range,unit);
     }
 
+    //add new facility to the database
     @PostMapping
     public void addNewFacility(
             @RequestBody Facility facility){

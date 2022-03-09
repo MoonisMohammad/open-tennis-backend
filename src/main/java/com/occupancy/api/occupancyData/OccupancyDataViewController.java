@@ -18,6 +18,7 @@ public class OccupancyDataViewController {
         this.dataService = dataService;
     }
 
+    //gets data based on date and 2 hour from given time
     @GetMapping(path = "hourlyAverage")
     public List<Double> timelyAverage(@RequestParam String deviceId,
                                       @RequestParam String referenceNumber,
@@ -25,6 +26,7 @@ public class OccupancyDataViewController {
         return dataService.getTimelyDataAverages(Long.valueOf(deviceId),Integer.valueOf(referenceNumber),dateTime);
     }
 
+    //gets all data between two dates for a device
     @GetMapping(path = "between")
     public List<OccupancyData> getBetween(@RequestParam String fromDateTime,
                                           @RequestParam String ToDateTime,

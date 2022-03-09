@@ -60,6 +60,7 @@ public class ReadSampleData {
         return facilities;
     }
 
+
     public void readDataForCourts() throws IOException {
         LocalDateTime curr = java.time.LocalDateTime.now();
         LocalDateTime max = getDateTime("2021-10-31 13:00",Long.valueOf(0));
@@ -88,6 +89,7 @@ public class ReadSampleData {
         }
     }
 
+    //generates data from provided lyndwood facility data
     public List<OccupancyData> getOccupancyData(Long deviceId,Long facilityId) throws IOException {
         List<OccupancyData> simulatedData = new ArrayList<>();
         readDataForCourts();
@@ -118,6 +120,7 @@ public class ReadSampleData {
        return simulatedData;
     }
 
+    //calls the random generate method for three device in a facility
     public List<OccupancyData> getRandomOccupancyData(Long deviceId,Long facilityId) throws IOException {
         List<OccupancyData> randomData = new ArrayList<>();
         readDataForCourts();
@@ -139,6 +142,7 @@ public class ReadSampleData {
         return randomData;
     }
 
+    //generates random occupancy data and fills it from current date to 35 days from now
     public List<OccupancyData> generateRandomData(int reference,
                                                   Long deviceId,
                                                   Long facilityId) {

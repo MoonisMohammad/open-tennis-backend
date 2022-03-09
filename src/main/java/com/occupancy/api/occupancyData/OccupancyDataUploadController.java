@@ -14,6 +14,7 @@ public class OccupancyDataUploadController {
         this.dataService = dataService;
     }
 
+    //uploads data and also updates current occupancy
     @PostMapping(path = "{authorizationId}")
     public void upload(@PathVariable("authorizationId")  String authorizationId,
                        @RequestBody OccupancyData data){

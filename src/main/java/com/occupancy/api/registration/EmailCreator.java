@@ -6,6 +6,9 @@ public class EmailCreator {
     public EmailCreator(){
 
     }
+
+    //html for confirmation success page
+    //change to html file in future
     public String conformationSuccessesPage(){
 
         return "<html>\n" +
@@ -61,6 +64,8 @@ public class EmailCreator {
 
     }
 
+    //html for confirmation  page
+    //change to html file in future
     public  String buildConfirmationEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#88B04B\">\n" +
                 "\n" +

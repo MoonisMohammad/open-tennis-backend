@@ -23,32 +23,37 @@ public class DeviceController {
         this.deviceService = deviceService;
     }
 
+    //return device with given id
     @GetMapping(path = "{deviceId}")
     public Device getDeviceWithId(@PathVariable("deviceId") Long deviceId){
         return deviceService.getDeviceWithId(deviceId);
     }
 
+    //get devices with a specific
     @GetMapping(path = "inFacility/{facilityId}")
     public List<Device> getDevicesWithFacilityId(@PathVariable("facilityId") Long facilityId){
         return deviceService.getDevicesWithFacilityId(facilityId);
     }
 
+    //get devices owned by user
     @GetMapping(path = "owned")
     public List<Device> getOwnedDevices(){
         return deviceService.getOwnedDevices();
     }
 
+    //get all device type
     @GetMapping(path = "types")
     public DeviceType[] getTypes(){
         return deviceService.getTypes();
     }
 
-
+    //registers a device to a facility is request params are valid
     @PutMapping(path = "register")
     public void registerDevice(@RequestBody  DeviceRegistrationRequest deviceRegistrationRequest) throws JsonProcessingException {
         deviceService.registerDevice(deviceRegistrationRequest);
     }
 
+    //used by admin to create a new device
     @PostMapping
     public @ResponseBody String addNewDevice() throws IOException, WriterException {
         return deviceService.addNewDevice();

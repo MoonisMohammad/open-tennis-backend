@@ -23,6 +23,7 @@ public class RegistrationService {
     private final EmailCreator emailCreator = new EmailCreator();
     private final EmailSender emailSender;
 
+    // process's the registration request for new user
     public Map<String, String> register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
                 test(request.getEmail());
@@ -48,6 +49,7 @@ public class RegistrationService {
         return map;
     }
 
+    //Takes in token and check if it's still valid and not expired
     @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService

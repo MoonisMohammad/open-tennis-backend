@@ -33,8 +33,10 @@ public class DeviceService {
         this.facilityRepository =facilityRepository;
     }
 
+    //gets all devices
     public List<Device> getDevices(){return deviceRepository.findAll();}
 
+    //gets device with specific id
     public Device getDeviceWithId(Long deviceId){
         Optional<Device> deviceOptional =deviceRepository.findById(deviceId);
         if(!deviceOptional.isPresent()){
@@ -44,16 +46,18 @@ public class DeviceService {
         return  deviceOptional.get();
     }
 
+    //gets all devices that have the specific facility id
     public List<Device> getDevicesWithFacilityId(Long facilityId) {
         return deviceRepository.findByFacilityId(facilityId);
     }
 
-
+    //gets all devices owned by current users organization
     public List<Device> getOwnedDevices() {
         AppUser appUser = getCurrentUser();
         return  deviceRepository.findByOwnerId((appUser.getOrganizationId()));
     }
 
+    //adds a new unregistered device to to database
     public String addNewDevice() throws IOException, WriterException {
         Device device = new Device();
         if(getCurrentUser().getAppUserRole()== AppUserRole.ADMIN) {
@@ -72,6 +76,7 @@ public class DeviceService {
 
     }
 
+    //Updates device info
     @Transactional
     public void updateDevice(Long deviceId,
                              String name,
@@ -98,6 +103,7 @@ public class DeviceService {
         }
     }
 
+    //registers device to users organization
     @Transactional
     public void registerDevice(DeviceRegistrationRequest deviceRegistrationRequest) throws JsonProcessingException {
         AppUser appUser = getCurrentUser();
@@ -115,10 +121,12 @@ public class DeviceService {
         System.out.println(authorizationId+"{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
     }
 
+    //gives list of device types
     public DeviceType[] getTypes(){
         return DeviceType.values();
     }
 
+    //return current user
     public AppUser getCurrentUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser;

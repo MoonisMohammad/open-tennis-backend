@@ -37,12 +37,13 @@ public class Device {
     private DeviceType deviceType;
     private int[] currOccupancy;
 
-
+    //This constructor creates a device which is not registered to any facility yet
     public Device(){
         this.inUse =false;
         authorizationId = createAuthId();
     }
 
+    //constructor for testing to create devices
     public Device(Long ownerId,
                   Long facilityId,
                   String name,
@@ -57,6 +58,7 @@ public class Device {
         currOccupancy = new int[areasMonitored];
     }
 
+    //ignore because we dont want the authentication id to be visible in our JSON
     @JsonIgnore
     public String getAuthorizationId(){return authorizationId;}
 
@@ -66,6 +68,7 @@ public class Device {
         this.inUse =false;
     }
 
+    //register the device to a facility
     public void register(Long ownerId,
                          Long facilityId,
                          String name,
@@ -82,6 +85,7 @@ public class Device {
 
     public void setCurrOccupancy(int referenceNumber, int count){currOccupancy[referenceNumber] = count;}
 
+    //creates a random authId for the device
     public String createAuthId(){
         int m = (int) Math.pow(10, 4);
         String r = Integer.toString( m + new Random().nextInt(9 * m));

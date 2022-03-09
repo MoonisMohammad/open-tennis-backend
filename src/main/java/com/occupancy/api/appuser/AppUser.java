@@ -41,6 +41,7 @@ public class AppUser implements UserDetails {
     private long[] favourites;
     private int favouritesSize = 0;
 
+    // used to create a new admin
     public AppUser(String email,
                    String password,
                    AppUserRole appUserRole) {
@@ -49,6 +50,7 @@ public class AppUser implements UserDetails {
         this.appUserRole = AppUserRole.ADMIN;
     }
 
+    //used to create a general user
     public AppUser(String firstName,
                    String lastName,
                    String email,
@@ -62,6 +64,7 @@ public class AppUser implements UserDetails {
         this.favourites= new long[10];
     }
 
+    //adds a facility with given facility id to favourites
     public boolean addFavourite(Long facilityId){
         if(favouritesSize != 10) {
             favouritesSize++;
@@ -71,6 +74,7 @@ public class AppUser implements UserDetails {
         return false;
     }
 
+    //removes a facility with given id from favourites
     public boolean removeFavourites(Long facilityId){
         if(favouritesSize == 0) return false;
         for(int i =0;i < favouritesSize;i++ ){
@@ -85,6 +89,7 @@ public class AppUser implements UserDetails {
         return false;
     }
 
+    //Given a organization id user is upgraded to manager of that organization
     public void setToManager(Long companyId){
         this.organizationId = companyId;
         this.appUserRole = AppUserRole.MANAGER;
